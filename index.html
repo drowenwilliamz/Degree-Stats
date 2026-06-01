@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Degree Results Dashboard</title>
+    <link rel="stylesheet" href="web/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Degree results</p>
+        <h1>Cohort module dashboard</h1>
+      </div>
+      <div class="source-pill" id="sourceSummary"></div>
+    </header>
+
+    <main>
+      <section class="controls" aria-label="Filters">
+        <label>
+          <span>Level</span>
+          <select id="levelFilter"></select>
+        </label>
+        <label>
+          <span>Year</span>
+          <select id="yearFilter"></select>
+        </label>
+        <label>
+          <span>Metric</span>
+          <select id="metricFilter">
+            <option value="mean">Mean mark</option>
+            <option value="median">Median mark</option>
+            <option value="passRate">Pass rate</option>
+            <option value="failRate">Fail rate</option>
+            <option value="firstRate">70+ rate</option>
+            <option value="stdev">Spread</option>
+          </select>
+        </label>
+        <label class="search">
+          <span>Find module</span>
+          <input id="searchFilter" type="search" placeholder="Thermo, ACHA5011, maths">
+        </label>
+      </section>
+
+      <nav class="tabs" aria-label="Views">
+        <button class="tab active" type="button" data-view="overview">Overview</button>
+        <button class="tab" type="button" data-view="modules">Modules</button>
+        <button class="tab" type="button" data-view="bridge">Validation bridge</button>
+      </nav>
+
+      <section id="overviewView" class="view active">
+        <div class="kpis" id="kpis"></div>
+        <div class="chart-grid">
+          <section class="panel wide">
+            <div class="panel-heading">
+              <h2>Biggest year-to-year shifts</h2>
+              <select id="shiftMetric">
+                <option value="mean">Mean mark shift</option>
+                <option value="median">Median mark shift</option>
+                <option value="passRate">Pass-rate shift</option>
+                <option value="firstRate">70+ rate shift</option>
+              </select>
+            </div>
+            <div id="shiftChart" class="chart tall"></div>
+          </section>
+          <section class="panel">
+            <h2>Unusual module-year means</h2>
+            <div id="outlierList" class="watchlist"></div>
+          </section>
+        </div>
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Module comparison lab</h2>
+              <div id="selectedMeta" class="muted"></div>
+            </div>
+            <select id="moduleSelect"></select>
+          </div>
+          <div class="chart-grid">
+            <div class="chart-box">
+              <div id="trendChart" class="chart"></div>
+              <p class="chart-help">Read this as the selected module’s headline metric over time. When the metric is mean mark, the vertical whisker is an approximate 95% confidence interval for the cohort mean: wider whiskers mean less certainty, usually because marks are more spread out or the cohort is smaller.</p>
+            </div>
+            <div class="chart-box">
+              <div id="thresholdChart" class="chart"></div>
+              <p class="chart-help">Each line is the percentage of students at or above a threshold. If the pass line drops, more students are falling below 40. If only the 60+ or 70+ lines drop, the lower end may be stable while higher attainment has fallen.</p>
+            </div>
+          </div>
+          <div id="moduleDetail" class="detail-grid"></div>
+          <section class="report-section">
+            <article class="report-card">
+              <div class="report-copy">
+                <h2>Histogram with normal reference (“bell curve” overlay)</h2>
+                <p>The bars show the observed mark distribution for each cohort. The orange curve is a normal reference using that cohort’s mean and standard deviation, so shifts in peak location suggest easier or harder outcomes, while wider curves indicate more variable marking or performance.</p>
+                <p class="how-to-read"><strong>How to read it:</strong> each small plot is one academic year. Taller bars mean more students in that mark range. The dashed vertical line is 40%. The orange curve is not a target; it is just a smooth reference for whether the marks are bunched, skewed, or unusually spread out.</p>
+              </div>
+              <div id="normalRefChart" class="report-chart"></div>
+            </article>
+            <article class="report-card">
+              <div class="report-copy">
+                <h2>Ridgeline density comparison</h2>
+                <p>Smoothed density curves make it easier to see whether a year moved as a whole, became more spread out, or developed clusters around mark boundaries. Median ticks are shown on each ridge.</p>
+                <p class="how-to-read"><strong>How to read it:</strong> the horizontal position is the mark. Wider/higher parts of a ridge show where marks are concentrated. A ridge shifted right means generally higher marks; a flatter, wider ridge means more variable marks.</p>
+              </div>
+              <div id="densityChart" class="report-chart"></div>
+            </article>
+            <article class="report-card">
+              <div class="report-copy">
+                <h2>Q-Q plot normality diagnostic</h2>
+                <p>Points close to the reference line are broadly normal in that range. Mark data rarely behaves perfectly normally, but tail departures can flag floor effects, ceiling effects, or unusually bunched outcomes.</p>
+                <p class="how-to-read"><strong>How to read it:</strong> this is mainly a shape check. Points above/below the diagonal mean observed marks are higher/lower than a normal model would expect at that percentile. Curved tails suggest skew or boundary effects.</p>
+              </div>
+              <div id="qqChart" class="report-chart"></div>
+            </article>
+            <article class="report-card">
+              <div class="report-copy">
+                <h2>Interpretation notes</h2>
+              </div>
+              <div id="reportBullets" class="report-notes"></div>
+            </article>
+          </section>
+          <div class="chart-grid">
+            <div class="chart-box">
+              <div id="histChart" class="chart"></div>
+              <p class="chart-help">Grouped bars compare raw counts in 10-mark bins. Use this to see whether a change is broad or concentrated around one part of the mark range.</p>
+            </div>
+            <div class="chart-box">
+              <div id="boxChart" class="chart"></div>
+              <p class="chart-help">The box covers the middle 50% of marks, the red line is the median, the whisker spans low-to-high, and dots are individual students. A few dots far away can pull the mean without moving the median much.</p>
+            </div>
+          </div>
+          <div class="chart-grid">
+            <div class="chart-box">
+              <div id="ecdfChart" class="chart"></div>
+              <p class="chart-help">For any mark on the x-axis, the y-axis shows the percentage of students at or below that mark. A lower curve is better overall because fewer students are below each threshold.</p>
+            </div>
+            <div class="chart-box">
+              <div id="bandChart" class="chart"></div>
+              <p class="chart-help">Each stacked bar adds to 100% of that year’s cohort. It shows whether changes are happening in fails, middling marks, 2:1-level marks, or first-class marks.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="modulesView" class="view">
+        <section class="panel">
+          <div class="panel-heading">
+            <h2>Module-year records</h2>
+            <button id="exportCsv" type="button">Export CSV</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Level</th>
+                  <th>Code</th>
+                  <th>Module</th>
+                  <th>N</th>
+                  <th>Mean</th>
+                  <th>Median</th>
+                  <th>Pass</th>
+                  <th>70+</th>
+                  <th>Delta</th>
+                  <th>Vs norm</th>
+                  <th>Spread</th>
+                </tr>
+              </thead>
+              <tbody id="moduleTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="bridgeView" class="view">
+        <section class="panel">
+          <div class="panel-heading">
+            <div>
+              <h2>Year one validation bridge</h2>
+              <p class="muted">Content areas roll related old and new Level 4 modules together using credit-weighted marks.</p>
+            </div>
+            <select id="bridgeMetric">
+              <option value="mean">Mean mark</option>
+              <option value="passRate">Pass rate</option>
+              <option value="failRate">Fail rate</option>
+              <option value="firstRate">70+ rate</option>
+            </select>
+          </div>
+          <div id="bridgeChart" class="bridge-grid"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="web/degree_results_data.js"></script>
+    <script src="web/app.js"></script>
+  </body>
+</html>

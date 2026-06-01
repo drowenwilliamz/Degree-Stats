@@ -183,22 +183,48 @@ def stats(values: list[float]) -> dict:
             "max": None,
             "q1": None,
             "q3": None,
+            "p10": None,
+            "p90": None,
+            "iqr": None,
+            "ci95": None,
+            "skew": None,
             "passRate": None,
             "failRate": None,
+            "bandCounts": [0, 0, 0, 0, 0],
             "firstRate": None,
             "upperSecondRate": None,
         }
+    mean = statistics.fmean(values)
+    stdev = statistics.stdev(values) if len(values) > 1 else 0
+    q1 = percentile(values, 0.25)
+    q3 = percentile(values, 0.75)
+    centred = [value - mean for value in values]
+    skew = None
+    if len(values) > 2 and stdev:
+        skew = sum(value**3 for value in centred) / len(values) / (stdev**3)
     return {
         "n": len(values),
-        "mean": round(statistics.fmean(values), 1),
+        "mean": round(mean, 1),
         "median": round(statistics.median(values), 1),
-        "stdev": round(statistics.stdev(values), 1) if len(values) > 1 else 0,
+        "stdev": round(stdev, 1),
         "min": round(values[0], 1),
         "max": round(values[-1], 1),
-        "q1": round(percentile(values, 0.25), 1),
-        "q3": round(percentile(values, 0.75), 1),
+        "q1": round(q1, 1),
+        "q3": round(q3, 1),
+        "p10": round(percentile(values, 0.10), 1),
+        "p90": round(percentile(values, 0.90), 1),
+        "iqr": round(q3 - q1, 1),
+        "ci95": round(1.96 * stdev / math.sqrt(len(values)), 1) if len(values) > 1 else 0,
+        "skew": round(skew, 2) if skew is not None else None,
         "passRate": round(percent(values, 40), 1),
         "failRate": round(percent(values, 40, "lt"), 1),
+        "bandCounts": [
+            sum(1 for value in values if value < 40),
+            sum(1 for value in values if 40 <= value < 50),
+            sum(1 for value in values if 50 <= value < 60),
+            sum(1 for value in values if 60 <= value < 70),
+            sum(1 for value in values if value >= 70),
+        ],
         "firstRate": round(percent(values, 70), 1),
         "upperSecondRate": round(percent(values, 60), 1),
     }
@@ -231,7 +257,7 @@ def extract_sheet(formula_ws, value_ws, workbook_path: Path) -> list[dict]:
             ]
             component_marks = [mark for mark in component_marks if mark is not None]
             overall = clean_mark(value_ws.cell(row, overall_col).value)
-            if component_marks and overall is not None:
+            if component_marks and overall is not None and overall > 0:
                 marks.append(overall)
         if not marks:
             continue
