@@ -1,0 +1,20 @@
+.progression-intro {border-top:5px solid var(--green)}
+.progression-intro h2 {font-size:26px;margin:8px 0 12px}
+.progression-intro .eyebrow {color:var(--green)}
+.progression-intro p,.progression-copy p {margin:12px 0;max-width:1100px;line-height:1.65}
+.progression-controls {display:flex;align-items:end;flex-wrap:wrap;gap:16px;margin:22px 0}
+.progression-controls label {display:grid;gap:6px;min-width:190px;font-weight:600}
+.progression-bar {margin:20px 0}
+.progression-bar>div:first-child {display:flex;justify-content:space-between;gap:12px;margin-bottom:7px}
+.progression-bar small {color:var(--muted)}
+.progression-bar .bar-track {height:12px;margin-bottom:5px}
+.progression-selected {background:#edf7f3;font-weight:700}
+.progression-actions {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+.progression-actions .report-card {display:block}
+.progression-actions p {margin:10px 0;line-height:1.6}
+.progression-copy li {margin:10px 0;line-height:1.6}
+.progression-copy summary {cursor:pointer;font-weight:700;margin-top:20px}
+.tabs {grid-template-columns:repeat(4,minmax(0,180px))}
+body:has(#progressionView.active) main>.controls {display:none}
+@media(max-width:900px){.tabs{grid-template-columns:repeat(2,1fr)}.progression-actions{grid-template-columns:1fr}.progression-bar>div:first-child{flex-direction:column;gap:2px}}
+@media print{body:has(#progressionView.active){font-size:10pt;background:white}.topbar{background:white;color:black;min-height:auto;padding:0 0 12px}.source-pill,.tabs,main>.controls,.progression-controls{display:none!important}main{padding:0}.panel{box-shadow:none;break-inside:avoid;margin:12px 0}.chart-grid,.progression-actions{display:block}.table-wrap{overflow:visible}table{min-width:0;width:100%;font-size:9pt}th,td{padding:5px}.report-card{break-inside:avoid}.view:not(.active){display:none!important}}
