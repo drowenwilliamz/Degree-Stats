@@ -23,7 +23,7 @@ get('progressionSort').value='rate';get('progressionSort').listeners.input();
 assert.match(get('progressionTable').innerHTML,/^<tr><td><strong>Automotive Chassis Systems/);
 get('progressionSort').value='change';get('progressionSort').listeners.input();
 assert.match(get('progressionTable').innerHTML,/^<tr><td><strong>Automotive Chassis Systems/);
-get('progressionExport').click();assert.match(exported,/Group Design Project/);assert.match(exported,/FT\/PT, resits and final progression unknown/);
+get('progressionExport').click();assert.match(exported,/Group Design Project/);assert.match(exported,/Full-time Level 5 module outcomes; resits and final progression unknown/);
 for(const [year,expected] of [['2022/2023','41 of 229'],['2023/2024','42 of 238'],['2024/2025','77 of 323']]){
   get('progressionYear').value=year;get('progressionYear').listeners.input();
   assert.ok(get('progressionHeadline').innerHTML.includes(expected),year);
@@ -31,4 +31,3 @@ for(const [year,expected] of [['2022/2023','41 of 229'],['2023/2024','42 of 238'
 }
 get('progressionPrint').click();assert.ok(printed);
 console.log('Progression checks passed: four years, count/rate/change rankings, totals, CSV and print handlers.');
-

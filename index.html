@@ -191,28 +191,28 @@
       </section>
       <section id="progressionView" class="view">
         <section class="panel progression-intro">
-          <p class="eyebrow">APR meeting brief</p>
-          <h2>Level 5: where to investigate progression barriers</h2>
-          <p>Four years of module results identify priorities for review. These are <strong>failed module results, not students prevented from progressing</strong>. Reassessment, compensation and withdrawal outcomes are not available.</p>
+          <p class="eyebrow">APR meeting brief · Andy and Owen</p>
+          <h2>Our review of full-time Level 5 module outcomes</h2>
+          <p>Following your request, we have reviewed four years of full-time Level 5 module results to identify where we should focus our investigation into progression. Our findings identify the modules with the greatest numbers and proportions of failed results. We still need to link these to reassessment, compensation and final progression decisions to establish how many students were prevented from progressing.</p>
           <div class="progression-controls">
             <label>Review year<select id="progressionYear"></select></label>
             <label>Rank modules by<select id="progressionSort"><option value="fails">Failed-result count</option><option value="rate">Failure rate</option><option value="change">Increase in failure rate</option></select></label>
             <button id="progressionExport" type="button">Export evidence CSV</button>
             <button id="progressionPrint" type="button">Print meeting brief</button>
           </div>
-          <p class="muted">This view uses its own year selector and always covers Level 5. FT / PT and programme breakdowns are unavailable. Source snapshot: 1 June 2026; confirm whether 2025/2026 results are complete and final.</p>
+          <p class="muted">Scope: full-time Level 5. This view uses its own year selector. Our review uses the results snapshot dated 1 June 2026; we need to confirm that the 2025/2026 results are complete and final.</p>
         </section>
         <div id="progressionKpis" class="kpis"></div>
-        <section class="panel"><h2>Meeting headline</h2><div id="progressionHeadline" class="progression-copy"></div></section>
+        <section class="panel"><h2>Our main findings</h2><div id="progressionHeadline" class="progression-copy"></div></section>
         <div class="chart-grid">
           <section class="panel"><h2>Share of failed results by module</h2><p class="muted">Counts show volume; percentages beside each bar show within-module failure rates.</p><div id="progressionBars"></div></section>
           <section class="panel"><h2>Four-year context</h2><div id="progressionYears"></div><p class="muted">Pooled rate = all failed module results / all included module results. Students can appear in several modules. Cohort size and module mix can change.</p></section>
         </div>
-        <section class="panel"><h2>Module evidence</h2><p class="muted">Change is in percentage points against the previous available year. “Near pass” means marks from 30 to below 40. Small cohorts (&lt;20 results) can produce volatile rates.</p><div class="table-wrap"><table><thead><tr><th>Module</th><th>Results</th><th>Failed</th><th>Fail rate</th><th>Change</th><th>Share of failures</th><th>Near pass</th><th>Four-year failed / results</th></tr></thead><tbody id="progressionTable"></tbody></table></div></section>
-        <section class="panel"><h2>Priorities and questions for the meeting</h2><div id="progressionActions" class="progression-actions"></div></section>
-        <section class="panel progression-copy"><h2>What Andy (FT) and Arnaud (PT) need to establish</h2>
-          <p>Each lead should validate the shortlist against their study mode: identify students whose final failed credits actually prevented progression, distinguish first attempts from reassessments, and check whether withdrawal preceded assessment. The current data cannot allocate findings to either lead’s cohort.</p>
-          <ol><li>Bring an anonymised student-level extract with programme, FT/PT status, module credits, first-attempt and resit results, non-submission/zero flags, and final progression or withdrawal decisions.</li><li>Confirm progression rules, compensation, carried credit and compulsory-pass modules. Link multiple failures to the same student before counting progression impact.</li><li>For the shortlisted modules, inspect assessment components, submission and attendance patterns, changes to teaching or assessment, and student feedback. Agree an owner and a review date for any intervention.</li></ol>
+        <section class="panel"><h2>Module evidence</h2><p class="muted">“pp” means percentage points: the difference between two failure rates, calculated before rounding. Change is against the previous available year. “Near pass” means marks from 30 to below 40. Small cohorts (&lt;20 results) can produce volatile rates.</p><div class="table-wrap"><table><thead><tr><th>Module</th><th>Results</th><th>Failed</th><th>Fail rate</th><th>Change</th><th>Share of failures</th><th>Near pass</th><th>Four-year failed / results</th></tr></thead><tbody id="progressionTable"></tbody></table></div></section>
+        <section class="panel"><h2>Our proposed priorities and responses</h2><div id="progressionActions" class="progression-actions"></div></section>
+        <section class="panel progression-copy"><h2>Our proposed next steps</h2>
+          <p>We recommend using the meeting to agree the priority modules and the evidence needed to establish their contribution to non-progression. We need to distinguish first-attempt failures from unresolved failures after reassessment, and establish whether withdrawal preceded assessment.</p>
+          <ol><li>We propose linking the module results to anonymised student records, including programme, credits, first-attempt and resit results, non-submission/zero flags, and final progression or withdrawal decisions.</li><li>We would then apply the progression rules, including compensation, carried credit and compulsory-pass requirements. This will let us count affected students once, even where they have failed several modules.</li><li>For the priority modules, we recommend reviewing assessment components, submission and attendance patterns, changes to teaching or assessment, and student feedback. We can then agree targeted support, an owner and a review date for each action.</li></ol>
           <details open><summary>Method and limits</summary><ul><li>All counts are recalculated from the bundled marks; a mark below 40 is treated as a failure. Rates are pooled from counts, not averaged across cohorts.</li><li>The extraction excluded zero overall marks and required a numeric component mark. Missing results and genuine zero outcomes may therefore be absent, understating failure.</li><li>Data has no linked student identifiers or final progression decisions. No causal or unique-student impact is claimed.</li><li>Modules are matched by code (or name if no code exists). All eight Level 5 modules currently carry 20 credits. Historical totals count results across years, not unique people.</li><li>Suggested actions are questions to test, not established causes. No formal significance test is used.</li></ul></details>
         </section>
       </section>
