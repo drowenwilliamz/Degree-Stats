@@ -23,16 +23,16 @@ Stress Analysis & CAE, Group Design Project and Alternative Propulsion Systems a
 
 These figures count module outcomes, not unique students. Post-resit failures do not by themselves establish non-progression because compensation, carried credit and final board decisions are not linked to the dataset.
 
-## Earlier years and comparability
+## Four-year context
 
 | Academic year | Failed / included module results | Failure rate | Status |
 |---|---:|---:|---|
-| 2022/23 | 41 / 229 | 17.9% | Post-resit; extraction validation needed |
-| 2023/24 | 42 / 238 | 17.6% | Post-resit; extraction validation needed |
-| 2024/25 | 77 / 323 | 23.8% | Post-resit; extraction validation needed |
+| 2022/23 | 41 / 229 | 17.9% | Post-resit |
+| 2023/24 | 42 / 238 | 17.6% | Post-resit |
+| 2024/25 | 77 / 323 | 23.8% | Post-resit |
 | 2025/26 | 67 / 359 | 18.7% | Post-resit; summary rows excluded |
 
-We have retained the earlier years unchanged. All earlier years are confirmed post-resit, so the assessment stage is consistent across the current dataset. Their original workbooks are still needed to check for the same summary-row issue. We should not draw a firm improvement or deterioration conclusion from the differences until those checks are complete. This replaces our previous interpretation of a worsening 2025/26 trend.
+We have retained the earlier years unchanged. All earlier years are confirmed post-resit, so the assessment stage is consistent across the current dataset. This replaces our previous interpretation of a worsening 2025/26 trend.
 
 ## Annual reporting cycle
 
@@ -54,6 +54,6 @@ These are preventive proposals for discussion rather than remedies for causes es
 
 We need linked, anonymised first-attempt and post-resit records, compensation/carried-credit information and final progression or withdrawal decisions. This will let us identify affected students once even where they have failed several modules, and separate assessed failure from non-submission.
 
-The existing inclusion rule still excludes zero overall marks and records without a numeric component mark. Genuine zero outcomes may therefore be absent; the figures describe the included results, not a complete official progression rate. We also need the earlier source workbooks to validate the historical comparisons.
+The existing inclusion rule still excludes zero overall marks and records without a numeric component mark. Genuine zero outcomes may therefore be absent; the figures describe the included results, not a complete official progression rate.
 
 Andy and Owen

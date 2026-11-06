@@ -159,7 +159,7 @@ function populateFilters() {
   const years = ["All years", ...unique(modules.map((m) => m.year))];
   els.levelFilter.innerHTML = levels.map((level) => `<option>${level}</option>`).join("");
   els.yearFilter.innerHTML = years.map((year) => `<option>${year}</option>`).join("");
-  els.sourceSummary.textContent = `${modules.length} module-year records from ${raw.sourceFiles.join(", ")}${raw.yearSources?.["2526"] ? ` · ${[...new Set(Object.values(raw.yearSources).map(s => s.assessmentStage))].join(" / ")} · earlier extraction pending validation` : ""}`;
+  els.sourceSummary.textContent = `${modules.length} module-year records from ${raw.sourceFiles.join(", ")}${raw.yearSources?.["2526"] ? ` · ${[...new Set(Object.values(raw.yearSources).map(s => s.assessmentStage))].join(" / ")}` : ""}`;
 }
 
 function filteredModules() {
