@@ -11,7 +11,7 @@ import extract_degree_results as ex
 def normalized(name):
     return re.sub(r"\b[A-Z]{3,5}\d{4}[A-Za-z]?\b", "", name).strip().casefold()
 
-def replace(workbook, data_path, imported):
+def replace(workbook, data_path, imported, stage='Post-resit'):
     original_text = data_path.read_text(encoding='utf-8-sig')
     original = json.loads(original_text.split('=', 1)[1].strip().rstrip(';'))
     year = ex.year_code(workbook)
@@ -38,7 +38,7 @@ def replace(workbook, data_path, imported):
             # Preserve established chart identities, including older missing codes.
             record['code'],record['module']=old['code'],old['module']
         record['sourceFile']=workbook.name
-        record['assessmentStage']='Post-resit'
+        record['assessmentStage']=stage
     expected={(r['level'],r['code'],r['module']) for r in previous}
     if used!=expected:
         raise ValueError(f'Modules missing from replacement: {expected-used}')
@@ -50,10 +50,10 @@ def replace(workbook, data_path, imported):
     result['sourceFiles']=[f for f in original['sourceFiles'] if not f.startswith(year)]+[workbook.name]
     result['generated']=imported
     result['yearSources']={**original.get('yearSources',{}),year:{
-        'file':workbook.name,'assessmentStage':'Post-resit','imported':imported,
+        'file':workbook.name,'assessmentStage':stage,'imported':imported,
         'sha256':hashlib.sha256(workbook.read_bytes()).hexdigest(),
         'extraction':'Summary rows excluded; existing nonzero numeric-mark inclusion rule retained'}}
-    result['comparisonNote']='2025/2026 uses post-resit results with summary rows excluded. Earlier years retain the legacy extraction and require source-workbook checks for summary-row contamination and assessment stage; differences are descriptive, not like-for-like progression comparisons.'
+    result['comparisonNote']='Post-resit is the standard annual dataset; pre-resit snapshots are provisional. Check yearSources for assessment stage. Earlier legacy imports still require summary-row validation before firm year-to-year conclusions.'
     assert [r for r in result['modules'] if r['yearCode']!=year]==[r for r in original['modules'] if r['yearCode']!=year]
     data_path.write_text('window.DEGREE_RESULTS_DATA = '+json.dumps(result,indent=2)+';\n',encoding='utf-8')
     for level in sorted({r['level'] for r in records}):
@@ -68,5 +68,6 @@ if __name__=='__main__':
     parser.add_argument('workbook',type=Path)
     parser.add_argument('--data',type=Path,default=ex.OUT)
     parser.add_argument('--imported',required=True,help='Import date, YYYY-MM-DD')
+    parser.add_argument('--stage', choices=['Post-resit', 'Pre-resit'], default='Post-resit', help='June pre-resit snapshots are provisional and later replaced')
     args=parser.parse_args()
-    replace(args.workbook,args.data,args.imported)
+    replace(args.workbook,args.data,args.imported,args.stage)

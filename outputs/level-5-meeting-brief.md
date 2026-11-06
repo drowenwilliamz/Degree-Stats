@@ -27,12 +27,16 @@ These figures count module outcomes, not unique students. Post-resit failures do
 
 | Academic year | Failed / included module results | Failure rate | Status |
 |---|---:|---:|---|
-| 2022/23 | 41 / 229 | 17.9% | Legacy extraction; source validation needed |
-| 2023/24 | 42 / 238 | 17.6% | Legacy extraction; source validation needed |
-| 2024/25 | 77 / 323 | 23.8% | Legacy extraction; source validation needed |
+| 2022/23 | 41 / 229 | 17.9% | Post-resit; extraction validation needed |
+| 2023/24 | 42 / 238 | 17.6% | Post-resit; extraction validation needed |
+| 2024/25 | 77 / 323 | 23.8% | Post-resit; extraction validation needed |
 | 2025/26 | 67 / 359 | 18.7% | Post-resit; summary rows excluded |
 
-We have retained the earlier years unchanged. Their original workbooks are needed to check for the same summary-row issue and establish whether they represent equivalent assessment stages. We should not draw a firm improvement or deterioration conclusion from the differences until those checks are complete. This replaces our previous interpretation of a worsening 2025/26 trend.
+We have retained the earlier years unchanged. All earlier years are confirmed post-resit, so the assessment stage is consistent across the current dataset. Their original workbooks are still needed to check for the same summary-row issue. We should not draw a firm improvement or deterioration conclusion from the differences until those checks are complete. This replaces our previous interpretation of a worsening 2025/26 trend.
+
+## Annual reporting cycle
+
+We will normally use post-resit results for annual comparisons. In June, we may upload a provisional pre-resit snapshot for an early review. We will label it clearly and replace that year’s snapshot with the post-resit workbook when available, rather than combining both sets of results. Any comparison involving the provisional June data will be identified as a comparison between different assessment stages.
 
 ## Proposals for the new validation
 
