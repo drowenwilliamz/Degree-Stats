@@ -72,7 +72,7 @@ def plausible_module_name(value: str) -> bool:
     low = value.lower()
     if low in {"hide", "sem1", "sem2", "sem1&2", "o/all", "total"}:
         return False
-    if re.fullmatch(r"[A-Z]{3,5}\d{4}[A-Z]?", value):
+    if re.fullmatch(r"[A-Z]{3,5}\d{4}[A-Za-z]?", value):
         return False
     if re.fullmatch(r"[A-Z&/ ]{1,8}", value) and len(value) <= 8:
         return False
@@ -117,7 +117,7 @@ def module_code(ws, label_row: int, start_col: int, end_col: int) -> str:
     for row in range(1, label_row):
         for col in range(start_col, end_col + 1):
             value = text(ws.cell(row, col).value)
-            match = re.search(r"\b[A-Z]{3,5}\d{4}[A-Z]?\b", value)
+            match = re.search(r"\b[A-Z]{3,5}\d{4}[A-Za-z]?\b", value)
             if match:
                 return match.group(0)
     return ""
@@ -239,6 +239,16 @@ def extract_sheet(formula_ws, value_ws, workbook_path: Path) -> list[dict]:
         for col in range(1, formula_ws.max_column + 1)
         if is_overall_label(text(formula_ws.cell(label_row, col).value))
     ]
+    # Workbook footer counts, averages and standard deviations are not marks.
+    summary_rows = set()
+    for row in range(label_row + 1, formula_ws.max_row + 1):
+        for col in overall_cols:
+            value = formula_ws.cell(row, col).value
+            formula = value if isinstance(value, str) else getattr(value, "text", "")
+            if re.search(r"\b(?:COUNTIFS?|AVERAGEIF[S]?|AVERAGE|STDEV[A-Z.]*)\s*\(", formula, re.I):
+                ranges = re.findall(r"\$?[A-Z]+\$?(\d+):\$?[A-Z]+\$?(\d+)", formula, re.I)
+                if any(a != b for a, b in ranges):
+                    summary_rows.add(row)
     modules: list[dict] = []
     previous_overall = 0
     for overall_col in overall_cols:
@@ -250,6 +260,8 @@ def extract_sheet(formula_ws, value_ws, workbook_path: Path) -> list[dict]:
         credits = module_credits(formula_ws, value_ws, label_row, start_col, end_col, overall_col)
         marks: list[float] = []
         for row in range(label_row + 1, formula_ws.max_row + 1):
+            if row in summary_rows:
+                continue
             component_marks = [
                 clean_mark(value_ws.cell(row, col).value)
                 for col in range(start_col, end_col)
